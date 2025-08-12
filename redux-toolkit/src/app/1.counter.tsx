@@ -1,19 +1,17 @@
 import React from 'react'
-import { useAppDispatch, useAppSelector } from './store'
-import { decrement, increment } from './counterSlice';
+import { useGetTodosQuery, useGetUsersQuery } from './api'
 
 const App = () => {
-  const value = useAppSelector(state => state.counter.value);
-  const dispatch = useAppDispatch();
-
+  const {data} = useGetUsersQuery();
+  const {data: todos} = useGetTodosQuery();
   return (
-    <div>
-      <span className='text-6xl'>{value}</span>
-      <div className='flex'>
-        <button onClick={()=> dispatch(increment())} className='bg-blue-500 px-4 py-2 rounded text-white'>Arttır</button>
-        <button onClick={()=> dispatch(decrement())} className='bg-red-500 px-4 py-2 rounded text-white'>Azalt</button>
-      </div>
-    </div>
+   <div>
+      <h2 className='text-blue-500 text-6xl'>Users</h2>
+      <li>{data?.map((user)=> <li>{user.name}</li>)}</li>
+      <h2 className='text-blue-500 text-6xl'>Todos</h2>
+      <li>{todos?.map((todo)=> <li>{todo.title}</li>)}</li>
+   </div>
+    
   )
 }
 

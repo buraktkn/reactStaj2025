@@ -5,6 +5,10 @@ export type User ={
     id: number,
     name: string
 }
+export type Todo ={
+    id: number,
+    title: string,
+}
 export const usersApi = createApi({
     reducerPath: "userApi",
     baseQuery: fetchBaseQuery({baseUrl: API_URL }),
@@ -12,8 +16,11 @@ export const usersApi = createApi({
         getUsers: builder.query<User[], void>({
             query: ()=> "/users",
         }),
+        getTodos: builder.query<Todo[], void>({
+            query: ()=> "/todos",
+        }),
     }),
 });
 
 
-export const {useGetUsersQuery} = usersApi;
+export const {useGetUsersQuery, useGetTodosQuery} = usersApi;
